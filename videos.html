@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>महाभारतदर्शनम् | Mahābhārata Darśanam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ochre: #cc9543;
+            --vermillion: #d1492d;
+            --indigo: #264653;
+            --parchment: #f5f0e5;
+            --gold: #c9a227;
+        }
+        
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: var(--parchment);
+            color: #333;
+            background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c49026bc-1005-4b3d-a541-3066fc86df98.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-blend-mode: overlay;
+            background-color: rgba(245, 240, 229, 0.9);
+        }
+
+        .devanagari {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+        }
+
+        .border-vintage {
+            border: 8px solid transparent;
+            border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="98" height="98" x="1" y="1" fill="none" stroke="%23cc9543" stroke-width="2" stroke-dasharray="12,4" rx="5" ry="5"/></svg>') 10;
+        }
+
+        .video-container {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            background: linear-gradient(135deg, #f5f0e5 0%, #e8dfc8 100%);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .control-btn {
+            color: var(--indigo);
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover {
+            color: var(--vermillion);
+            transform: scale(1.1);
+        }
+
+        progress[value]::-webkit-progress-value {
+            background-color: var(--ochre);
+            border-radius: 4px;
+        }
+
+        .parva-card {
+            background: linear-gradient(135deg, #f5f0e5 0%, #e8dfc8 100%);
+            border-left: 4px solid var(--ochre);
+            transition: all 0.3s;
+        }
+
+        .parva-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .quote-card {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23cc9543" fill-opacity="0.1" d="M20,20 L80,20 L80,80 L20,80 Z" stroke="%23cc9543" stroke-width="2" stroke-dasharray="6,2" fill-rule="evenodd"/></svg>');
+            background-size: cover;
+            padding: 2rem;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            background: var(--ochre);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-amber-900 mb-2">Mahābhārata Darśanam</h1>
+            <h2 class="text-2xl text-amber-800 mb-6">महाभारतदर्शनम्</h2>
+            <div class="w-24 h-1 bg-amber-700 mx-auto mb-8"></div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Video Player Section -->
+            <div class="lg:col-span-2">
+                <div class="video-container p-4 mb-8">
+                    <div class="relative pb-[56.25%] h-0 overflow-hidden">
+                        <video id="main-video" class="absolute top-0 left-0 w-full h-full bg-black">
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+                        </video>
+                        <div id="video-overlay" class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                            <button id="play-btn" class="bg-amber-800 bg-opacity-70 rounded-full p-4 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Video Controls -->
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span id="current-time" class="text-amber-900 text-sm">00:00</span>
+                            <span id="video-duration" class="text-amber-900 text-sm">00:00</span>
+                        </div>
+                        <input id="progress-bar" type="range" min="0" max="100" value="0" class="w-full h-2 mb-4 bg-amber-200 rounded-lg appearance-none cursor-pointer">
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="flex space-x-4">
+                                <button id="play-pause-btn" class="control-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                    </svg>
+                                </button>
+                                <button id="rewind-btn" class="control-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z" />
+                                    </svg>
+                                </button>
+                                <button id="forward-btn" class="control-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.933 12.8a1 1 0 000-1.6L6.6 7.2A1 1 0 005 8v8a1 1 0 001.6.8l5.333-4zM19.933 12.8a1 1 0 000-1.6l-5.333-4A1 1 0 0013 8v8a1 1 0 001.6.8l5.333-4z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <div class="flex items-center space-x-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m8.456-9.9a9 9 0 011.414 1.414" />
+                                </svg>
+                                <input id="volume-slider" type="range" min="0" max="1" step="0.1" value="1" class="volume-slider w-24 h-1 bg-amber-200 rounded-lg appearance-none cursor-pointer">
+                            </div>
+                            
+                            <div class="flex space-x-2">
+                                <button id="fullscreen-btn" class="control-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Details -->
+                <div class="bg-amber-50 bg-opacity-70 p-6 rounded-lg shadow-md border border-amber-200 mb-8">
+                    <h3 class="text-2xl font-bold text-amber-900 mb-2">Bhishma Parva: Chapter 25</h3>
+                    <p class="text-amber-800 font-medium mb-4">The Bhagavad Gita - Krishna's Divine Counsel</p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">Part 6 of 18</span>
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">33 min 28 sec</span>
+                        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">Kurukshetra</span>
+                    </div>
+                    
+                    <p class="text-gray-700 mb-4">
+                        In this pivotal chapter of the Bhishma Parva, Arjuna is overcome with moral dilemma at the prospect of battling his own kin. 
+                        Lord Krishna imparts the timeless wisdom of the Bhagavad Gita, revealing profound truths about duty (dharma), the eternal soul, 
+                        and the path to liberation (moksha).
+                    </p>
+                    
+                    <div class="quote-card my-6">
+                        <p class="text-amber-900 italic text-lg mb-2">
+                            "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br>
+                            मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥"
+                        </p>
+                        <p class="text-amber-800">
+                            "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action. 
+                            Never consider yourself the cause of the results of your activities, and never be attached to not doing your duty."
+                        </p>
+                    </div>
+                    
+                    <div class="flex justify-between items-center mt-6">
+                        <div class="flex space-x-3">
+                            <button class="flex items-center text-amber-900 hover:text-amber-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                </svg>
+                                <span class="ml-1">Save</span>
+                            </button>
+                            <button class="flex items-center text-amber-900 hover:text-amber-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                                </svg>
+                                <span class="ml-1">Share</span>
+                            </button>
+                        </div>
+                        
+                        <button class="flex items-center px-4 py-2 bg-amber-700 text-white rounded-md hover:bg-amber-800 transition-colors">
+                            <span>Next Chapter</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+                <!-- Categories -->
+                <div class="bg-amber-50 bg-opacity-70 p-6 rounded-lg shadow-md border border-amber-200 mb-8">
+                    <h3 class="text-xl font-bold text-amber-900 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        Explore by Category
+                    </h3>
+                    
+                    <div class="space-y-2">
+                        <details class="group">
+                            <summary class="flex justify-between items-center cursor-pointer list-none">
+                                <span class="text-amber-800 font-medium">पर्वाः (Books)</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-700 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <div class="ml-4 mt-2 space-y-2">
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">आदि पर्व</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">सभा पर्व</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">वन पर्व</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">विराट पर्व</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">उद्योग पर्व</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">भीष्म पर्व</a>
+                            </div>
+                        </details>
+                        
+                        <details class="group">
+                            <summary class="flex justify-between items-center cursor-pointer list-none">
+                                <span class="text-amber-800 font-medium">Characters</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-700 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <div class="ml-4 mt-2 space-y-2">
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">Krishna</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">Arjuna</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">Bhishma</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">Draupadi</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">Karna</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">Duryodhana</a>
+                            </div>
+                        </details>
+                        
+                        <details class="group">
+                            <summary class="flex justify-between items-center cursor-pointer list-none">
+                                <span class="text-amber-800 font-medium">Themes</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-700 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </summary>
+                            <div class="ml-4 mt-2 space-y-2">
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">Dharma (Duty)</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">Karma (Action)</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">Moksha (Liberation)</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">War and Peace</a>
+                                <a href="#" class="block text-gray-700 hover:text-amber-800">Wisdom and Knowledge</a>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                
+                <!-- Related Videos -->
+                <div class="bg-amber-50 bg-opacity-70 p-6 rounded-lg shadow-md border border-amber-200">
+                    <h3 class="text-xl font-bold text-amber-900 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 01221 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        Related Episodes
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="parva-card p-4 rounded-lg cursor-pointer">
+                            <div class="flex">
+                                <div class="w-24 h-16 bg-amber-200 rounded overflow-hidden">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9da76ddf-ce43-4f19-a590-c39250410473.png" alt="Miniature painting of Krishna speaking to Arjuna on the battlefield of Kurukshetra" class="w-full h-full object-cover">
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-sm font-semibold text-amber-900">Bhishma Parva 24</h4>
+                                    <p class="text-xs text-gray-600">The Prelude to Gita</p>
+                                    <p class="text-xs text-amber-700">21 min</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="parva-card p-4 rounded-lg cursor-pointer">
+                            <div class="flex">
+                                <div class="w-24 h-16 bg-amber-200 rounded overflow-hidden">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bfe42c5f-69f9-47d7-a4c0-a0988b1a3e17.png" alt="Illuminated manuscript showing Krishna revealing his Vishvarupa form to Arjuna" class="w-full h-full object-cover">
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-sm font-semibold text-amber-900">Bhishma Parva 26</h4>
+                                    <p class="text-xs text-gray-600">Vishvarupa Darshan</p>
+                                    <p class="text-xs text-amber-700">28 min</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="parva-card p-4 rounded-lg cursor-pointer">
+                            <div class="flex">
+                                <div class="w-24 h-16 bg-amber-200 rounded overflow-hidden">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4dee5912-91e8-4aec-9f58-f21d1edcdee5.png" alt="Traditional painting depicting the Kurukshetra battlefield with warriors in ancient armor" class="w-full h-full object-cover">
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-sm font-semibold text-amber-900">Bhishma Parva 1</h4>
+                                    <p class="text-xs text-gray-600">The Battle Begins</p>
+                                    <p class="text-xs text-amber-700">35 min</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="parva-card p-4 rounded-lg cursor-pointer">
+                            <div class="flex">
+                                <div class="w-24 h-16 bg-amber-200 rounded overflow-hidden">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/11452b55-b674-4265-9998-7739ff1d7973.png" alt="Ancient-style painting of Bhishma lying on the bed of arrows with warriors surrounding him" class="w-full h-full object-cover">
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-sm font-semibold text-amber-900">Bhishma Parva 119</h4>
+                                    <p class="text-xs text-gray-600">Bhishma's Fall</p>
+                                    <p class="text-xs text-amber-700">42 min</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('main-video');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const playBtn = document.getElementById('play-btn');
+            const rewindBtn = document.getElementById('rewind-btn');
+            const forwardBtn = document.getElementById('forward-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const currentTimeDisplay = document.getElementById('current-time');
+            const durationDisplay = document.getElementById('video-duration');
+            const volumeSlider = document.getElementById('volume-slider');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const videoOverlay = document.getElementById('video-overlay');
+            
+            // Initialize video duration
+            video.addEventListener('loadedmetadata', function() {
+                durationDisplay.textContent = formatTime(video.duration);
+            });
+            
+            // Play/Pause functionality
+            function togglePlayPause() {
+                if (video.paused) {
+                    video.play();
+                    playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>';
+                } else {
+                    video.pause();
+                    playPauseBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /></svg>';
+                }
+            }
+            
+            playPauseBtn.addEventListener('click', togglePlayPause);
+            playBtn.addEventListener('click', togglePlayPause);
+            
+            // Overlay play button
+            videoOverlay.addEventListener('click', togglePlayPause);
+            video.addEventListener('play', () => videoOverlay.style.opacity = '0');
+            video.addEventListener('pause', () => videoOverlay.style.opacity = '1');
+            
+            // Rewind 15 seconds
+            rewindBtn.addEventListener('click', function() {
+                video.currentTime -= 15;
+            });
+            
+            // Forward 15 seconds
+            forwardBtn.addEventListener('click', function() {
+                video.currentTime += 15;
+            });
+            
+            // Update progress bar as video plays
+            video.addEventListener('timeupdate', function() {
+                const percent = (video.currentTime / video.duration) * 100;
+                progressBar.value = percent;
+                currentTimeDisplay.textContent = formatTime(video.currentTime);
+            });
+            
+            // Seek functionality
+            progressBar.addEventListener('input', function() {
+                const seekTime = (progressBar.value / 100) * video.duration;
+                video.currentTime = seekTime;
+            });
+            
+            // Volume control
+            volumeSlider.addEventListener('input', function() {
+                video.volume = volumeSlider.value;
+            });
+            
+            // Fullscreen functionality
+            fullscreenBtn.addEventListener('click', function() {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) {
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) {
+                    video.msRequestFullscreen();
+                }
+            });
+            
+            // Helper function to format time
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.floor(seconds % 60);
+                return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+            }
+            
+            // Dark/light mode toggle would be implemented here
+            // (could be added if requested)
+        });
+    </script>
+</body>
+</html>
+

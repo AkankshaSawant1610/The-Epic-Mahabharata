@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kathākośaḥ - Stories from the Mahabharata</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Cormorant+Garamond:wght@400;700&display=swap');
+        
+        :root {
+            --scrollbar-thumb: #8b5a2b;
+            --scrollbar-track: #f0e6d2;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-color: #f5f0e6;
+            color: #4a3a2a;
+            background-image: url('media/katha1.avif');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-blend-mode: overlay;
+            background-color: rgba(245, 240, 230, 0.9);
+        }
+
+        .devanagari {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            line-height: 1.8;
+        }
+
+        .parchment {
+            background-color: #f9f3e9;
+            background-image: linear-gradient(to bottom, rgba(232, 219, 193, 0.4), rgba(232, 219, 193, 0.1) 70%, transparent 90%),
+                              linear-gradient(to right, #eee4d0 0%, #f9f3e9 10%, #f9f3e9 90%, #eee4d0 100%);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1), 
+                        inset 0 0 50px rgba(139, 90, 43, 0.2);
+            border-radius: 5px;
+        }
+
+        .parchment::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://placehold.co/1920x1080');
+            background-size: cover;
+            opacity: 0.05;
+            pointer-events: none;
+            border-radius: 5px;
+        }
+
+        .gold-border {
+            border: 3px solid transparent;
+            border-image: linear-gradient(to right, #d4af37, #f9d423, #d4af37) 1;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .scroll-container {
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scroll-container::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+            border-radius: 10px;
+        }
+
+        .scroll-container::-webkit-scrollbar-thumb {
+            background-color: var(--scrollbar-thumb);
+            border-radius: 10px;
+            border: 1px solid var(--scrollbar-track);
+        }
+
+        .sanskrit-term {
+            border-bottom: 1px dotted #8b5a2b;
+            cursor: help;
+            position: relative;
+        }
+
+        .sanskrit-term:hover .glossary-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .glossary-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(74, 58, 42, 0.9);
+            color: #f9f3e9;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s;
+            width: max-content;
+            max-width: 300px;
+            z-index: 100;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .category-tag {
+            transition: all 0.3s ease;
+        }
+
+        .category-tag:hover {
+            transform: translateY(-2px);
+        }
+
+        .audio-controls {
+            background: rgba(232, 219, 193, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #8b5a2b;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <!-- Logo -->
+            <div class="flex justify-center mb-4">
+                <div class="gold-border p-4 bg-white bg-opacity-80 rounded-full">
+                    <img src="media/logo1.jpg" alt="Kathākośaḥ logo featuring an ancient palm leaf manuscript with Devanagari calligraphy and gold embellishments" class="w-24 h-24 object-cover rounded-full">
+                </div>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-2 text-amber-900">Mahābhārata Kathākośaḥ</h1>
+            <h2 class="text-xl md:text-2xl mb-6 italic text-amber-800">Treasures from the Mahābhārata</h2>
+            
+            <!-- Language Toggle -->
+            <div class="flex justify-center space-x-4 mb-6">
+                <button id="toggleLang" class="px-4 py-2 bg-amber-700 text-white rounded-md hover:bg-amber-800 transition">
+                    <span class="devanagari">संस्कृत</span>/English
+                </button>
+                <button id="savePdf" class="px-4 py-2 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition">
+                    Save as PDF
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex flex-col lg:flex-row gap-8">
+            <!-- Sidebar - Story Categories -->
+            <aside class="lg:w-1/4">
+                <div class="parchment p-6 h-full sticky top-8 scroll-container overflow-y-auto max-h-[80vh]">
+                    <h3 class="text-2xl font-bold mb-4 text-amber-900 border-b border-amber-200 pb-2">Story Categories</h3>
+                    
+                    <!-- Major Events -->
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold mb-2 text-amber-800">Major Events</h4>
+                        <ul class="space-y-2">
+                            <li><button class="category-tag nav-link w-full text-left" data-category="war">Kurukshetra War</button></li>
+                            <li><button class="category-tag nav-link w-full text-left" data-category="dice">Dice Game</button></li>
+                            <li><button class="category-tag nav-link w-full text-left" data-category="exile">Pandavas' Exile</button></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Character Arcs -->
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold mb-2 text-amber-800">Character Arcs</h4>
+                        <ul class="space-y-2">
+                            <li><button class="category-tag nav-link w-full text-left" data-category="bhishma">Bhishma's Vow</button></li>
+                            <li><button class="category-tag nav-link w-full text-left" data-category="karna">Karna's Loyalty</button></li>
+                            <li><button class="category-tag nav-link w-full text-left" data-category="arjuna">Arjuna's Dilemma</button></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Moral Lessons -->
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2 text-amber-800">Moral Lessons</h4>
+                        <ul class="space-y-2">
+                            <li><button class="category-tag nav-link w-full text-left" data-category="dharma">Dharma</button></li>
+                            <li><button class="category-tag nav-link w-full text-left" data-category="detachment">Detachment</button></li>
+                            <li><button class="category-tag nav-link w-full text-left" data-category="devotion">Devotion</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Story Reader -->
+            <section class="lg:w-3/4">
+                <div class="parchment p-6 md:p-8 relative mb-6 gold-border">
+                    <!-- Font Controls -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-amber-800">Text Size:</span>
+                            <button id="decreaseFont" class="w-8 h-8 rounded-full bg-amber-600 text-white hover:bg-amber-700">-</button>
+                            <button id="resetFont" class="w-8 h-8 rounded-full bg-amber-700 text-white hover:bg-amber-800">•</button>
+                            <button id="increaseFont" class="w-8 h-8 rounded-full bg-amber-600 text-white hover:bg-amber-700">+</button>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button id="toggleFullTranslation" class="px-3 py-1 bg-amber-600 text-white rounded text-sm hover:bg-amber-700">
+                                Show Full Translation
+                            </button>
+                            <button id="shareStory" class="px-3 py-1 bg-amber-700 text-white rounded text-sm hover:bg-amber-800">
+                                Share
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Story Content -->
+                    <div id="storyContent" class="prose prose-lg max-w-none scroll-container overflow-y-auto" style="max-height: 60vh;">
+                        <h2 id="storyTitle" class="text-3xl font-bold mb-4 text-amber-900">The Bhagavad Gita: Arjuna's Dilemma</h2>
+                        
+                        <div id="englishContent" class="">
+                            <p>On the battlefield of Kurukshetra, Arjuna faced a profound <span class="sanskrit-term">dharma-sankata<span class="glossary-tooltip">Confusion/dilemma regarding one's duty</span></span>. Seeing his teacher <span class="sanskrit-term">Dronacharya<span class="glossary-tooltip">Arjuna's guru, master of military arts</span></span>, grandfather <span class="sanskrit-term">Bhishma<span class="glossary-tooltip">Grandsire, warrior of unmatched prowess</span></span>, and cousins arrayed against him, he was overcome with grief.</p>
+                            
+                            <p>"It would be better," he told Krishna, "if the sons of Dhritarashtra killed me, unarmed and unresisting, rather than I fight them." Krishna, who agreed to be Arjuna's charioteer, then delivered the teachings of the <span class="sanskrit-term">Bhagavad Gita<span class="glossary-tooltip">Song of the Divine, spiritual dialog between Krishna and Arjuna</span></span>.</p>
+                            
+                            <p>The central teaching revolves around the concept of <span class="sanskrit-term">nishkama karma<span class="glossary-tooltip">Action without attachment to results</span></span> — performing one's duty without expectation of reward. Krishna explains that the soul is eternal (<span class="sanskrit-term">atman<span class="glossary-tooltip">The eternal self or soul</span></span>), while the body is temporary.</p>
+                            
+                            <p>Arjuna's dilemma reflects the universal human struggle between personal attachments and higher duty. The Gita suggests that true wisdom comes from seeing beyond temporary circumstances to eternal principles of righteousness (<span class="sanskrit-term">dharma<span class="glossary-tooltip">Righteousness, moral duty, cosmic law</span></span>).</p>
+                            
+                            <p>Ultimately, Arjuna chooses to fight, not from desire for victory or kingdom, but because it is his duty as a <span class="sanskrit-term">kshatriya<span class="glossary-tooltip">Warrior caste, protector of society</span></span>. This episode symbolizes the perennial conflict between human emotion and philosophical understanding.</p>
+                        </div>
+                        
+                        <div id="devanagariContent" class="devanagari hidden">
+                            <p>कुरुक्षेत्र के युद्धक्षेत्र में, अर्जुन एक गहन <span class="sanskrit-term">धर्म-संकट<span class="glossary-tooltip">अपने कर्तव्य के संबंध में भ्रम/दुविधा</span></span> का सामना कर रहे थे। अपने गुरु <span class="sanskrit-term">द्रोणाचार्य<span class="glossary-tooltip">अर्जुन के गुरु, सैन्य कलाओं के स्वामी</span></span>, पितामह <span class="sanskrit-term">भीष्म<span class="glossary-tooltip">परमपितामह, अद्वितीय पराक्रमी योद्धा</span></span>, और चचेरे भाइयों को अपने विरुद्ध खड़े देखकर वे दुःख से भर गए।</p>
+                            
+                            <p>"यह बेहतर होगा," उन्होंने कृष्ण से कहा, "अगर धृतराष्ट्र के पुत्र मुझे निहत्था और प्रतिरोध न करते हुए मार डालें, बजाय इसके कि मैं उनसे युद्ध करूँ।" कृष्ण, जो अर्जुन के सारथी बनने के लिए सहमत हुए थे, ने तब <span class="sanskrit-term">भगवद्गीता<span class="glossary-tooltip">दिव्य गीत, कृष्ण और अर्जुन के बीच आध्यात्मिक संवाद</span></span> के उपदेश दिए।</p>
+                            
+                            <p>मुख्य शिक्षा <span class="sanskrit-term">निष्काम कर्म<span class="glossary-tooltip">फल की इच्छा के बिना कर्म</span></span> की अवधारणा के आसपास घूमती है — पुरस्कार की अपेक्षा के बिना अपने कर्तव्य का पालन करना। कृष्ण समझाते हैं कि आत्मा शाश्वत है (<span class="sanskrit-term">आत्मन्<span class="glossary-tooltip">शाश्वत स्व या आत्मा</span></span>), जबकि शरीर अस्थायी है।</p>
+                            
+                            <p>अर्जुन की दुविधा व्यक्तिगत लगाव और उच्चतर कर्तव्य के बीच सार्वभौमिक मानवीय संघर्ष को दर्शाती है। गीता सुझाव देती है कि सच्ची बुद्धि अस्थायी परिस्थितियों से परे देखकर धर्म के शाश्वत सिद्धांतों (<span class="sanskrit-term">धर्म<span class="glossary-tooltip">धार्मिकता, नैतिक कर्तव्य, ब्रह्मांडीय नियम</span></span>) को समझने से आती है।</p>
+                            
+                            <p>अंततः, अर्जुन लड़ने का विकल्प चुनते हैं, न कि विजय या राज्य की इच्छा से, बल्कि इसलिए कि यह एक <span class="sanskrit-term">क्षत्रिय<span class="glossary-tooltip">योद्धा वर्ण, समाज का रक्षक</span></span> के रूप में उनका कर्तव्य है। यह प्रकरण मानवीय भावना और दार्शनिक समझ के बीच चिरस्थायी संघर्ष का प्रतीक है।</p>
+                        </div>
+                    </div>
+
+                    <!-- Audio Controls -->
+                    <div class="audio-controls mt-6 p-4 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center space-x-4">
+                            <button id="playAudio" class="w-12 h-12 rounded-full bg-amber-700 hover:bg-amber-800 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 010-7.072m-2.828 9.9a9 9 0 010-12.728"></path>
+                                </svg>
+                            </button>
+                            <div class="w-full max-w-md">
+                                <input type="range" id="audioProgress" class="w-full h-2 bg-amber-200 rounded-lg appearance-none cursor-pointer" value="0">
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm">
+                            <label for="bgMusic" class="text-amber-800">Background Music:</label>
+                            <select id="bgMusic" class="border border-amber-300 rounded px-2 py-1 bg-white">
+                                <option value="none">None</option>
+                                <option value="flute">Bansuri Flute</option>
+                                <option value="veena">Veena</option>
+                                <option value="chanting">Vedic Chanting</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Story Navigation -->
+                <div class="flex justify-between mt-4">
+                    <button class="px-4 py-2 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition">
+                        Previous Story
+                    </button>
+                    <button class="px-4 py-2 bg-amber-600 text-white rounded-md hover:bg-amber-700 transition">
+                        Next Story
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-16 text-center text-amber-700 text-sm">
+            <p>Kathākośaḥ - Preserving the wisdom of the Mahābhārata</p>
+            <p class="mt-1">© <span id="currentYear"></span> All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Toggle between Devanagari and English
+        const toggleLang = document.getElementById('toggleLang');
+        const englishContent = document.getElementById('englishContent');
+        const devanagariContent = document.getElementById('devanagariContent');
+
+        toggleLang.addEventListener('click', () => {
+            englishContent.classList.toggle('hidden');
+            devanagariContent.classList.toggle('hidden');
+            
+            if (englishContent.classList.contains('hidden')) {
+                toggleLang.innerHTML = '<span class="devanagari">English</span>/संस्कृत';
+            } else {
+                toggleLang.innerHTML = '<span class="devanagari">संस्कृत</span>/English';
+            }
+        });
+
+        // Font size controls
+        const storyContent = document.getElementById('storyContent');
+        const decreaseFont = document.getElementById('decreaseFont');
+        const resetFont = document.getElementById('resetFont');
+        const increaseFont = document.getElementById('increaseFont');
+
+        let currentFontSize = 1; // rem
+
+        decreaseFont.addEventListener('click', () => {
+            currentFontSize = Math.max(0.8, currentFontSize - 0.1);
+            storyContent.style.fontSize = `${currentFontSize}rem`;
+        });
+
+        increaseFont.addEventListener('click', () => {
+            currentFontSize = Math.min(1.5, currentFontSize + 0.1);
+            storyContent.style.fontSize = `${currentFontSize}rem`;
+        });
+
+        resetFont.addEventListener('click', () => {
+            currentFontSize = 1;
+            storyContent.style.fontSize = `${currentFontSize}rem`;
+        });
+
+        // Category navigation
+        const categoryTags = document.querySelectorAll('.category-tag');
+        categoryTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                // In a real app, this would load different content
+                const category = tag.getAttribute('data-category');
+                const storyTitle = document.getElementById('storyTitle');
+                
+                // Just for demo - update title based on category
+                const titles = {
+                    'war': 'The Kurukshetra War: Dharma Yuddha',
+                    'dice': 'The Dice Game: Pandavas\' Downfall',
+                    'exile': 'The Forest Exile: Lessons in Patience',
+                    'bhishma': 'Bhishma\'s Terrible Vow',
+                    'karna': 'Karna: The Warrior of Generosity',
+                    'arjuna': 'Arjuna\'s Dilemma',
+                    'dharma': 'The Path of Dharma',
+                    'detachment': 'Lessons in Detachment',
+                    'devotion': 'Bhaktī: The Power of Devotion'
+                };
+                
+                storyTitle.textContent = titles[category] || titles['arjuna'];
+                
+                // Highlight selected category
+                categoryTags.forEach(t => t.classList.remove('font-bold', 'text-amber-900'));
+                tag.classList.add('font-bold', 'text-amber-900');
+            });
+        });
+
+        // Audio controls
+        const playAudio = document.getElementById('playAudio');
+        const audioProgress = document.getElementById('audioProgress');
+        let isPlaying = false;
+
+        playAudio.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            
+            if (isPlaying) {
+                playAudio.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                `;
+                
+                // Simulate audio progress - in a real app this would control actual audio
+                let progress = 0;
+                const interval = setInterval(() => {
+                    if (progress >= 100 || !isPlaying) {
+                        clearInterval(interval);
+                        return;
+                    }
+                    progress += 0.5;
+                    audioProgress.value = progress;
+                }, 100);
+            } else {
+                playAudio.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 010-7.072m-2.828 9.9a9 9 0 010-12.728"></path>
+                    </svg>
+                `;
+            }
+        });
+
+        // Save as PDF button
+        document.getElementById('savePdf').addEventListener('click', () => {
+            alert('In a complete implementation, this would generate a PDF of the current story with Devanagari/English text and glossary notes.');
+        });
+
+        // Share button
+        document.getElementById('shareStory').addEventListener('click', () => {
+            alert('Sharing feature would be implemented here. This could share the current story via social media or email.');
+        });
+
+        // Toggle full translation
+        document.getElementById('toggleFullTranslation').addEventListener('click', function() {
+            const allTooltips = document.querySelectorAll('.glossary-tooltip');
+            const isShowing = allTooltips[0].style.visibility === 'visible';
+            
+            allTooltips.forEach(tooltip => {
+                tooltip.style.visibility = isShowing ? 'hidden' : 'visible';
+                tooltip.style.opacity = isShowing ? '0' : '1';
+            });
+            
+            this.textContent = isShowing ? 'Show Full Translation' : 'Hide Full Translation';
+        });
+    </script>
+</body>
+</html>

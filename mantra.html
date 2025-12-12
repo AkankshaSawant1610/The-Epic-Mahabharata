@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divine Mantras</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Playfair+Display:wght@400;700&display=swap">
+    <style>
+        :root {
+            --vintage-red: #8B2E2E;
+            --gold: #C9A66B;
+            --deep-blue: #0A254C;
+            --old-paper: #F5E8C6;
+        }
+        
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, var(--deep-blue) 0%, #1A1A2E 100%);
+            color: var(--old-paper);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/06d87c6b-66dc-474a-bb7c-06b114d54102.png');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        .devnagari {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-weight: 700;
+        }
+        
+        .vintage-card {
+            background: linear-gradient(135deg, rgba(139, 46, 46, 0.9) 0%, rgba(59, 42, 42, 0.8) 100%);
+            border: 3px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(201, 166, 107, 0.3);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        
+        .mantra-card {
+            background: rgba(10, 37, 76, 0.8);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 0 10px;
+            width: 300px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mantra-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(201, 166, 107, 0.5);
+        }
+        
+        .mantra-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/29b10a01-85d7-48d7-b70e-ead5094d82f3.png');
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .meaning-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-top: 20px;
+            background: rgba(201, 166, 107, 0.1);
+            padding: 15px;
+            border-left: 3px solid var(--gold);
+            border-radius: 5px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.5); /* Added background color */
+            padding: 10px; /* Added padding */
+            border-radius: 5px; /* Added border radius */
+        }
+        
+        .audio-container {
+            max-width: 100%;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        audio {
+            width: 100%;
+            filter: sepia(50%) saturate(150%);
+        }
+        
+       .lotus-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-image: url('media/smallogo2.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-color: transparent; /* Optional, helps with visibility on dark backgrounds */
+}
+
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 max-w-5xl">
+        <h1>Vedic Mantras Collection</h1>
+        
+        <!-- Main Display Card -->
+        <div class="vintage-card">
+            <div class="lotus-icon"></div>
+            <div id="mantraDisplay" class="typing-text" style="height: 80px;"></div>
+            <div id="meaningDisplay" class="meaning-text italic">Select a mantra from below to begin...</div>
+            
+            <div class="audio-controls flex justify-center mt-6">
+                <button id="playBtn" class="px-6 py-2">Play Audio</button>
+                <button id="repeatBtn" class="px-6 py-2">Repeat</button>
+                <button id="downloadBtn" class="px-6 py-2">Download</button>
+            </div>
+            
+            <div id="audioContainer" class="audio-container hidden">
+                <audio id="mantraAudio" controls>
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+        
+        <!-- Mantra Cards Collection -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
+            <div class="mantra-card" data-mantra="ॐ नमः शिवाय" 
+                 data-meaning="Salutations to Lord Shiva - The mantra meaning 'I bow to Shiva,' representing the ultimate reality and consciousness." 
+                 data-audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+                <div class="relative h-40 overflow-hidden rounded-t-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ae7059d9-102f-494d-8d17-60170578b2c0.png" alt="Lord Shiva illustration" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-0 right-0 text-center">
+                        <div class="devnagari text-2xl text-white">ॐ नमः शिवाय</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="text-sm text-gray-300">Click to view and listen</div>
+                </div>
+            </div>
+            
+            <div class="mantra-card" data-mantra="गायत्री मंत्र" 
+                 data-meaning="The Gayatri Mantra from the Rig Veda - A universal prayer for enlightenment and divine wisdom." 
+                 data-audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
+                <div class="relative h-40 overflow-hidden rounded-t-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/gayatri.jpg" alt="Gayatri Mantra illustration" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-0 right-0 text-center">
+                        <div class="devnagari text-2xl text-white">ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात्</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="text-sm text-gray-300">Click to view and listen</div>
+                </div>
+            </div>
+            
+            <div class="mantra-card" data-mantra="महामृत्युंजय मंत्र" 
+                 data-meaning="The Great Death-Conquering Mantra - Sacred hymn to Lord Shiva for healing and longevity." 
+                 data-audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">
+                <div class="relative h-40 overflow-hidden rounded-t-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/mahamrityunjaya.jpg" alt="Mahamrityunjaya Mantra illustration" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-0 right-0 text-center">
+                        <div class="devnagari text-2xl text-white">ॐ त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम् उर्वारुकमिव बन्धनान् मृत्योर्मुक्षीय मामृतात्</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="text-sm text-gray-300">Click to view and listen</div>
+                </div>
+            </div>
+            
+            <div class="mantra-card" data-mantra="श्रीकृष्ण मंत्र" 
+                 data-meaning="Krishna Mantra - Devotional chant celebrating Lord Krishna's divine play and wisdom." 
+                 data-audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3">
+                <div class="relative h-40 overflow-hidden rounded-t-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/shrikrishna.jpg" alt="Shri Krishna illustration" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-0 right-0 text-center">
+                        <div class="devnagari text-2xl text-white">ॐ नमो भगवते वासुदेवाय</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="text-sm text-gray-300">Click to view and listen</div>
+                </div>
+            </div>
+            
+            <div class="mantra-card" data-mantra="हनुमान चालीसा" 
+                 data-meaning="Hanuman Chalisa - Devotional hymn in praise of Lord Hanuman's strength and devotion." 
+                 data-audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3">
+                <div class="relative h-40 overflow-hidden rounded-t-md">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/hanuman.jpg" alt="Hanuman Chalisa illustration" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                    <div class="absolute bottom-4 left-0 right-0 text-center">
+                        <div class="devnagari text-2xl text-white">श्री गुरु चरण सरोज रज, निज मन मुकुर सुधारि। वरणौं रघुवर विमल यश, जो दायक फल चारि॥</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="text-sm text-gray-300">Click to view and listen</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mantraCards = document.querySelectorAll('.mantra-card');
+            const mantraDisplay = document.getElementById('mantraDisplay');
+            const meaningDisplay = document.getElementById('meaningDisplay');
+            const playBtn = document.getElementById('playBtn');
+            const repeatBtn = document.getElementById('repeatBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const mantraAudio = document.getElementById('mantraAudio');
+            const audioContainer = document.getElementById('audioContainer');
+            
+            let currentAudioSrc = '';
+            
+            // Initialize typing animation function
+            function typeWriter(text, element, speed = 50) {
+                let i = 0;
+                element.innerHTML = '';
+                
+                function typing() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(typing, speed);
+                    }
+                }
+                
+                typing();
+            }
+            
+            // Handle mantra card selection
+            mantraCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove active class from all cards
+                    mantraCards.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to selected card
+                    this.classList.add('active');
+                    
+                    // Get mantra data
+                    const mantra = this.dataset.mantra;
+                    const meaning = this.dataset.meaning;
+                    const audioSrc = this.dataset.audio;
+                    
+                    // Update display with typing animation
+                    typeWriter(mantra, mantraDisplay);
+                    meaningDisplay.textContent = meaning;
+                    
+                    // Set up audio
+                    currentAudioSrc = audioSrc;
+                    mantraAudio.src = audioSrc;
+                    audioContainer.classList.remove('hidden');
+                    
+                    // Auto play after 1 second delay
+                    setTimeout(() => {
+                        mantraAudio.play();
+                    }, 1000);
+                });
+            });
+            
+            // Audio controls
+            playBtn.addEventListener('click', function() {
+                if (currentAudioSrc) {
+                    mantraAudio.play();
+                }
+            });
+            
+            repeatBtn.addEventListener('click', function() {
+                if (currentAudioSrc) {
+                    mantraAudio.currentTime = 0;
+                    mantraAudio.play();
+                }
+            });
+            
+            downloadBtn.addEventListener('click', function() {
+                if (currentAudioSrc) {
+                    const link = document.createElement('a');
+                    link.href = currentAudioSrc;
+                    link.download = 'mantra.mp3';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            });
+            
+            // Initialize with first mantra
+            mantraCards[0].click();
+        });
+    </script>
+</body>
+</html>

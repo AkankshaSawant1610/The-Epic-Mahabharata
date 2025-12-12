@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahabharata Flash Screen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Tangerine:wght@700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary: #8B4513;
+            --secondary: #D2B48C;
+            --accent: #CD853F;
+            --text: #dba01f;
+            --light: #F5F5DC;
+            --gold: #D4AF37;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IM Fell English', serif;
+            background-color: var(--light);
+            background-image: url('media/img.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            color: var(--text);
+            line-height: 1.6;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(207, 187, 173, 0.1);
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Main Scroll Container */
+        .scroll-container {
+            width: 100%;
+            height: 60vh;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        /* Individual Scroll Pages */
+        .scroll-page {
+            min-width: 100vw;
+            height: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10%;
+            position: relative;
+        }
+
+        /* Card Styles */
+        .card {
+            width: 80%;
+            height: 80%;
+            background-color: rgba(210, 180, 140, 0.85);
+            border: 3px solid var(--primary);
+            box-shadow: var(--shadow);
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('media/card.webp');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .card-border {
+            position: absolute;
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
+            top: 10px;
+            left: 10px;
+            border: 1px dashed var(--gold);
+            pointer-events: none;
+        }
+
+        .card-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Typing Text Effect */
+        .typing-text {
+            font-family: 'Tangerine', cursive;
+            font-size: 5rem;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            min-height: 120px;
+        }
+
+        .typing-subtext {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.8rem;
+            color: var(--text);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 60px;
+            background-color: var(--gold);
+            animation: blink 1s infinite;
+            vertical-align: bottom;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Decorative Elements */
+        .scroll-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100px;
+            bottom: -50px;
+            left: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="" width="200" height="100" viewBox="0 0 200 100"><path d="M0,20 Q100,50 200,20 L200,100 L0,100 Z" fill="%238B4513" opacity="0.3"/></svg>');
+            background-repeat: repeat-x;
+            background-position: center bottom;
+            pointer-events: none;
+        }
+
+        
+        .ornament-1 {
+            top: 20px;
+            left: 20px;
+        }
+
+        .ornament-2 {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        /* Begin Button */
+       
+.begin-button {
+    margin-top: 2rem;
+    padding: 1rem 3rem;
+    background: linear-gradient(to bottom, var(--gold), var(--accent));
+    color: var(--text);
+    font-family: 'IM Fell English SC', serif;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 15px 5px var(--gold); /* Glowing effect added */
+    text-transform: uppercase;
+}
+
+        .begin-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        .begin-button::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('media/button.jpg');
+            background-size: cover;
+            opacity: 0.9;
+            z-index: -1;
+        }
+
+        /* Navigation Dots */
+        .nav-dots {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .nav-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary);
+        }
+
+        .nav-dot.active {
+            background-color: var(--gold);
+            transform: scale(1.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .typing-text {
+                font-size: 3.5rem;
+            }
+            
+            .typing-subtext {
+                font-size: 1.2rem;
+            }
+            
+            .card {
+                width: 90%;
+                padding: 2rem;
+            }
+            
+            .begin-button {
+                padding: 0.8rem 2rem;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        /* Card Entry Animation */
+        @keyframes cardEntry {
+            from { transform: translateX(100vw); }
+            to { transform: translateX(0); }
+        }
+
+        .card-entry {
+            animation: cardEntry 1s ease-in-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Scroll Container with Cards -->
+        <div class="scroll-container" id="scroll-container">
+            <!-- Page 1 -->
+            <div class="scroll-page">
+                <div class="card card-entry" style="animation-delay: 0.2s; background-image: url('media/back1.jpg')">
+                   
+                    <div class="ornament ornament-1"></div>
+                    <div class="ornament ornament-2"></div>
+                    
+                    <div class="card-content">
+                        <div class="typing-text">
+                           
+                            <span id="title-text">महाभारतम्</span>
+                            <span class="cursor"></span>
+                        </div>
+                        <div class="typing-subtext fade-in" style="animation-delay: 1s;">
+                            The Eternal Song of Dharma
+                        </div>
+                        <div class="ornament" style="left: 50%; transform: translateX(-50%);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 2 -->
+            <div class="scroll-page">
+                <div class="card" style="background-image: url('media/back1.jpg')">
+                   
+                    <div class="ornament ornament-1"></div>
+                    <div class="ornament ornament-2"></div>
+                    
+                    <div class="card-content">
+                        <div class="typing-text">
+                            
+                            <span id="warrior-text"></span>
+                            <span class="cursor"></span>
+                        </div>
+                        <div class="typing-subtext fade-in" style="animation-delay: 1s;">
+                            The Great War of Kurukshetra
+                        </div>
+                        <div class="ornament" style="left: 50%; transform: translateX(-50%);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 3 -->
+            <div class="scroll-page">
+                <div class="card" style="background-image: url('media/back1.jpg')">
+                   
+                    <div class="ornament ornament-1"></div>
+                    <div class="ornament ornament-2"></div>
+                    
+                    <div class="card-content">
+                        <div class="typing-text">
+                          
+                            <span id="wisdom-text"></span>
+                            <span class="cursor"></span>
+                        </div>
+                        <div class="typing-subtext fade-in" style="animation-delay: 1s;">
+                            Timeless Lessons from Krishna's Teachings
+                        </div>
+                        <div class="ornament" style="left: 50%; transform: translateX(-50%);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Decoration -->
+        <div class="scroll-decoration"></div>
+
+        <!-- Navigation Dots -->
+        <div class="nav-dots">
+            <div class="nav-dot active" data-index="0"></div>
+            <div class="nav-dot" data-index="1"></div>
+            <div class="nav-dot" data-index="2"></div>
+        </div>
+
+        <!-- Begin Button -->
+        <button class="begin-button fade-in" style="animation-delay: 2s;">
+            आरंभ | Begin
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const scrollContainer = document.getElementById('scroll-container');
+            const navDots = document.querySelectorAll('.nav-dot');
+            const beginButton = document.querySelector('.begin-button');
+            
+            // Texts to animate
+            const texts = [
+                { 
+                    element: document.getElementById('warrior-text'),
+                    content: ["धर्मक्षेत्रे कुरुक्षेत्रे", "On the Sacred Battlefield"],
+                    speed: 100
+                },
+                { 
+                    element: document.getElementById('wisdom-text'), 
+                    content: ["भगवद्गीता", "The Song Divine"],
+                    speed: 100
+                }
+            ];
+
+            // Typing animation function
+            function typeWriter(element, text, speed, callback) {
+                let i = 0;
+                element.innerHTML = ''; // Clear existing content
+                
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else if (callback) {
+                        callback();
+                    }
+                }
+                
+                type();
+            }
+
+            // Animate the main title first
+            setTimeout(() => {
+                texts.forEach((item, index) => {
+                    setTimeout(() => {
+                        typeWriter(item.element, item.content[0], item.speed, () => {
+                            setTimeout(() => {
+                                item.element.insertAdjacentHTML('beforeend', '<br>');
+                                setTimeout(() => {
+                                    typeWriter(item.element, item.content[1], item.speed);
+                                }, 500);
+                            }, 500);
+                        });
+                    }, index * 2000);
+                });
+            }, 1000);
+
+            // Scroll event listener
+            scrollContainer.addEventListener('scroll', function() {
+                const scrollPosition = scrollContainer.scrollLeft;
+                const pageWidth = scrollContainer.clientWidth;
+                const currentPage = Math.round(scrollPosition / pageWidth);
+                
+                // Update navigation dots
+                navDots.forEach((dot, index) => {
+                    if (index === currentPage) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            });
+
+            // Navigation dot click handlers
+            navDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    scrollContainer.scrollTo({
+                        left: index * scrollContainer.clientWidth,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Begin button functionality
+            beginButton.addEventListener('click', function() {
+                alert('Beginning the journey through Mahabharata...');
+                // In a real implementation, you would redirect to the main page
+                // window.location.href = 'main.html';
+            });
+
+            // Touch support for mobile devices
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            scrollContainer.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+
+            scrollContainer.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, {passive: true});
+
+            function handleSwipe() {
+                if (touchEndX < touchStartX - 50) {
+                    // Swipe left - next page
+                    scrollContainer.scrollBy({
+                        left: scrollContainer.clientWidth,
+                        behavior: 'smooth'
+                    });
+                } else if (touchEndX > touchStartX + 50) {
+                    // Swipe right - previous page
+                    scrollContainer.scrollBy({
+                        left: -scrollContainer.clientWidth,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

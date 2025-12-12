@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ślokasaṅgrahaḥ - श्लोकसंग्रहः</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sanskrit&family=Noto+Sans+Devanagari:wght@400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+        
+        body {
+            font-family: 'Libre Baskerville', serif;
+            background-color: #f5f1e6;
+            background-image: url('media/gita3.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #3a3226;
+        }
+        
+        .devanagari {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        .scroll-card {
+            background-image: url('media/a2.jpg');
+            background-size: cover;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-radius: 2px;
+            border: 1px solid #d4c9a8;
+            position: relative;
+        }
+        
+        .scroll-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+           
+            pointer-events: none;
+            border-radius: 2px 2px 0 0;
+        }
+        
+        .scroll-card::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+           
+            pointer-events: none;
+            border-radius: 0 0 2px 2px;
+        }
+        
+        .bookmark-btn:hover .bookmark-icon {
+            stroke: #c19a6b;
+        }
+        
+        .play-btn:hover circle {
+            fill: #c19a6b;
+        }
+        
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .category-tab {
+            font-family: 'Libre Baskerville', serif;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .category-tab:hover {
+            border-bottom: 3px solid #c19a6b;
+        }
+        
+        .category-tab.active {
+            border-bottom: 3px solid #8b6f47;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12 fade-in">
+            <div class="flex justify-center mb-6">
+                <img src="media/smallogo2.jpg" alt="Ornate Om symbol with traditional Indian decorative border" class="w-24 h-24 object-contain">
+            </div>
+            <h1 class="text-4xl font-bold mb-2 text-[#5e4b30]">
+                <span class="devanagari">महाभारतगीतातत्त्वम्</span>
+                <br>
+               Mahābhāratagītātattvam
+            </h1>
+            <p class="text-lg italic text-gray-700 max-w-2xl mx-auto">
+                Timeless verses from the Mahābhārata for reflection and wisdom
+            </p>
+        </header>
+        
+        <!-- Filter Controls -->
+        <div class="mb-8 fade-in">
+            <div class="flex flex-wrap justify-center gap-4 mb-6">
+                <button class="category-tab active px-4 py-2">All</button>
+                <button class="category-tab px-4 py-2">Bhagavad Gītā</button>
+                <button class="category-tab px-4 py-2">Shānti Parva</button>
+                <button class="category-tab px-4 py-2">Dharma</button>
+                <button class="category-tab px-4 py-2">Karma</button>
+                <button class="category-tab px-4 py-2">Moksha</button>
+                <button class="category-tab px-4 py-2">Bhakti</button>
+            </div>
+            
+            <div class="relative max-w-md mx-auto">
+                <input type="text" placeholder="Search verses..." class="w-full px-4 py-3 border border-[#d4c9a8] rounded-lg bg-white bg-opacity-70 focus:outline-none focus:ring-1 focus:ring-[#8b6f47] pl-10">
+                <div class="absolute left-3 top-3.5 text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sloka Display -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <!-- Sloka Card 1 -->
+            <div class="scroll-card p-6 fade-in">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-sm bg-[#d4c9a8] text-[#5e4b30] px-2 py-1 rounded">Bhagavad Gītā</span>
+                    <button class="bookmark-btn group">
+                        <svg class="w-6 h-6 bookmark-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="devanagari text-2xl mb-4 leading-relaxed">
+                    योगस्थः कुरु कर्माणि सङ्गं त्यक्त्वा धनञ्जय।
+                    सिद्ध्यसिद्ध्योः समो भूत्वा समत्वं योग उच्यते॥
+                </div>
+                
+                <div class="mb-4 italic text-sm text-black-600">
+                    <span class="font-bold">Krishna</span> to <span class="font-bold">Arjuna</span> | Battlefield of Kurukshetra
+                </div>
+                
+                <div class="mb-4">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" class="form-checkbox h-4 w-4 text-[#8b6f47]">
+                        <span class="text-sm text-black-700">Show IAST transliteration</span>
+                    </label>
+                    
+                    <div class="mt-2 text-sm italic hidden">
+                        "yogasthaḥ kuru karmāṇi saṅgaṁ tyaktvā dhanañjaya<br>
+                        siddhyasiddhyoḥ samo bhūtvā samatvaṁ yoga ucyate"
+                    </div>
+                </div>
+                
+                <div class="border-t border-[#d4c9a8] pt-4">
+                    <h4 class="font-bold mb-2">English Translation</h4>
+                    <p class="text-sm">
+                        "Perform your duty equipoised, O Arjuna, abandoning all attachment to success or failure. Such equanimity is called yoga."
+                    </p>
+                </div>
+                
+                <div class="border-t border-[#d4c9a8] pt-4 mt-4">
+                    <h4 class="font-bold mb-2">Philosophical Insight</h4>
+                    <p class="text-sm">
+                        This verse teaches the essence of Karma Yoga - performing actions with detachment from results, maintaining balance in success and failure.
+                    </p>
+                </div>
+                
+                <div class="flex justify-between items-center mt-6 pt-4 border-t border-[#d4c9a8]">
+                    <button class="play-btn flex items-center text-[#5e4b30]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <circle cx="10" cy="10" r="9" fill="#ebe3cd" class="transition-colors"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill="#5e4b30"/>
+                        </svg>
+                        <span class="text-sm">Listen</span>
+                    </button>
+                    
+                    <div class="flex space-x-3">
+                        <button class="text-[#5e4b30] hover:text-[#8b6f47]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47c.1.149.223.285.365.402z" />
+                            </svg>
+                        </button>
+                        <button class="text-[#5e4b30] hover:text-[#8b6f47]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3.17 6.706a5 5 0 017.103-3.16.75.75 0 01-.582 1.385 3.5 3.5 0 00-4.98 2.212A4.001 4.001 0 012 10c0 .633.174 1.226.476 1.735a.75.75 0 01-1.344.658A5.5 5.5 0 010 10a5 5 0 013.17-4.294zM8 5a.75.75 0 01.75.75v3.793l1.146-1.147a.75.75 0 011.06 1.06l-2.5 2.5a.75.75 0 01-1.06 0l-2.5-2.5a.75.75 0 011.06-1.06l1.144 1.144V5.75A.75.75 0 018 5zm-6.56 8.25a5.5 5.5 0 008.06.807.75.75 0 01.833 1.245 6.474 6.474 0 01-2.26.448A6.5 6.5 0 014.561 15a5.5 5.5 0 01-1.99-.542.75.75 0 01-.192-1.208zm16.56-.25a5 5 0 01-7.104 3.16.75.75 0 01.583-1.385 3.5 3.5 0 004.982-2.214A4 4 0 0018 10.001c0-.632-.174-1.225-.476-1.734a.75.75 0 011.344-.658A5.5 5.5 0 0120 10a5.499 5.499 0 01-3.17 4.293z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sloka Card 2 -->
+            <div class="scroll-card p-6 fade-in">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-sm bg-[#d4c9a8] text-[#5e4b30] px-2 py-1 rounded">Shānti Parva</span>
+                    <button class="bookmark-btn group">
+                        <svg class="w-6 h-6 bookmark-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="devanagari text-2xl mb-4 leading-relaxed">
+                    धर्म एव हतो हन्ति धर्मो रक्षति रक्षितः।
+                    तस्माद्धर्मो न हन्तव्यो मा नो धर्मो हतोऽवधीत्॥
+                </div>
+                
+                <div class="mb-4 italic text-sm text-black-600">
+                    <span class="font-bold">Bhīṣma</span> to <span class="font-bold">Yudhiṣṭhira</span> | Bed of Arrows
+                </div>
+                
+                <div class="mb-4">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" class="form-checkbox h-4 w-4 text-[#8b6f47]">
+                        <span class="text-sm text-black-700">Show IAST transliteration</span>
+                    </label>
+                    
+                    <div class="mt-2 text-sm italic hidden">
+                        "dharma eva hato hanti dharmo rakṣati rakṣitaḥ<br>
+                        tasmāddharmo na hantavyo mā no dharmo hato'vadhīt"
+                    </div>
+                </div>
+                
+                <div class="border-t border-[#d4c9a8] pt-4">
+                    <h4 class="font-bold mb-2">English Translation</h4>
+                    <p class="text-sm">
+                        "Dharma destroys those who violate it, Dharma protects those who follow it. Therefore never abandon Dharma, lest Dharma destroyed should destroy us."
+                    </p>
+                </div>
+                
+                <div class="border-t border-[#d4c9a8] pt-4 mt-4">
+                    <h4 class="font-bold mb-2">Philosophical Insight</h4>
+                    <p class="text-sm">
+                        This emphasizes the fundamental principle that Dharma is both protector and disciplinary force. Upholding righteousness leads to protection, while neglecting it brings destruction.
+                    </p>
+                </div>
+                
+                <div class="flex justify-between items-center mt-6 pt-4 border-t border-[#d4c9a8]">
+                    <button class="play-btn flex items-center text-[#5e4b30]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <circle cx="10" cy="10" r="9" fill="#ebe3cd" class="transition-colors"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill="#5e4b30"/>
+                        </svg>
+                        <span class="text-sm">Listen</span>
+                    </button>
+                    
+                    <div class="flex space-x-3">
+                        <button class="text-[#5e4b30] hover:text-[#8b6f47]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47c.1.149.223.285.365.402z" />
+                            </svg>
+                        </button>
+                        <button class="text-[#5e4b30] hover:text-[#8b6f47]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3.17 6.706a5 5 0 017.103-3.16.75.75 0 01-.582 1.385 3.5 3.5 0 00-4.98 2.212A4.001 4.001 0 012 10c0 .633.174 1.226.476 1.735a.75.75 0 01-1.344.658A5.5 5.5 0 010 10a5 5 0 013.17-4.294zM8 5a.75.75 0 01.75.75v3.793l1.146-1.147a.75.75 0 011.06 1.06l-2.5 2.5a.75.75 0 01-1.06 0l-2.5-2.5a.75.75 0 011.06-1.06l1.144 1.144V5.75A.75.75 0 018 5zm-6.56 8.25a5.5 5.5 0 008.06.807.75.75 0 01.833 1.245 6.474 6.474 0 01-2.26.448A6.5 6.5 0 014.561 15a5.5 5.5 0 01-1.99-.542.75.75 0 01-.192-1.208zm16.56-.25a5 5 0 01-7.104 3.16.75.75 0 01.583-1.385 3.5 3.5 0 004.982-2.214A4 4 0 0018 10.001c0-.632-.174-1.225-.476-1.734a.75.75 0 011.344-.658A5.5 5.5 0 0120 10a5.499 5.499 0 01-3.17 4.293z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sloka Card 3 -->
+            <div class="scroll-card p-6 fade-in">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-sm bg-[#d4c9a8] text-[#5e4b30] px-2 py-1 rounded">Udyoga Parva</span>
+                    <button class="bookmark-btn group">
+                        <svg class="w-6 h-6 bookmark-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="devanagari text-2xl mb-4 leading-relaxed">
+                    अपि स्विदर्थं कृतमित्यमन्यत यद्धर्ममास्थाय नमन्नरेन्द्रः।
+                    वत्सो यथा वत्सतरीं न जह्याद्धर्मं जहीयात्कथमाग्निहोत्री॥
+                </div>
+                
+                <div class="mb-4 italic text-sm text-black-600">
+                    <span class="font-bold">Krishna</span> to <span class="font-bold">Duryodhana</span> | Peace Mission
+                </div>
+                
+                <div class="mb-4">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input type="checkbox" class="form-checkbox h-4 w-4 text-[#8b6f47]">
+                        <span class="text-sm text-black-700">Show IAST transliteration</span>
+                    </label>
+                    
+                    <div class="mt-2 text-sm italic hidden">
+                        "api svidarthaṁ kṛtamityamanyata yaddharmamāsthāya namanarendraḥ<br>
+                        vatso yathā vatsatarīṁ na jahyāddharmam jahīyātkathamāgnihotrī"
+                    </div>
+                </div>
+                
+                <div class="border-t border-[#d4c9a8] pt-4">
+                    <h4 class="font-bold mb-2">English Translation</h4>
+                    <p class="text-sm">
+                        "O King, don't think that you're achieving anything worthwhile by bending Dharma. Just as a calf never abandons its mother cow, how can one devoted to sacred rites ever abandon Dharma?"
+                    </p>
+                </div>
+                
+                <div class="border-t border-[#d4c9a8] pt-4 mt-4">
+                    <h4 class="font-bold mb-2">Philosophical Insight</h4>
+                    <p class="text-sm">
+                        Krishna challenges Duryodhana's rationalization for his actions. The analogy emphasizes Dharma should be as natural and indispensable as the bond between calf and cow.
+                    </p>
+                </div>
+                
+                <div class="flex justify-between items-center mt-6 pt-4 border-t border-[#d4c9a8]">
+                    <button class="play-btn flex items-center text-[#5e4b30]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <circle cx="10" cy="10" r="9" fill="#ebe3cd" class="transition-colors"/>
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill="#5e4b30"/>
+                        </svg>
+                        <span class="text-sm">Listen</span>
+                    </button>
+                    
+                    <div class="flex space-x-3">
+                        <button class="text-[#5e4b30] hover:text-[#8b6f47]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47c.1.149.223.285.365.402z" />
+                            </svg>
+                        </button>
+                        <button class="text-[#5e4b30] hover:text-[#8b6f47]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3.17 6.706a5 5 0 017.103-3.16.75.75 0 01-.582 1.385 3.5 3.5 0 00-4.98 2.212A4.001 4.001 0 012 10c0 .633.174 1.226.476 1.735a.75.75 0 01-1.344.658A5.5 5.5 0 010 10a5 5 0 013.17-4.294zM8 5a.75.75 0 01.75.75v3.793l1.146-1.147a.75.75 0 011.06 1.06l-2.5 2.5a.75.75 0 01-1.06 0l-2.5-2.5a.75.75 0 011.06-1.06l1.144 1.144V5.75A.75.75 0 018 5zm-6.56 8.25a5.5 5.5 0 008.06.807.75.75 0 01.833 1.245 6.474 6.474 0 01-2.26.448A6.5 6.5 0 014.561 15a5.5 5.5 0 01-1.99-.542.75.75 0 01-.192-1.208zm16.56-.25a5 5 0 01-7.104 3.16.75.75 0 01.583-1.385 3.5 3.5 0 004.982-2.214A4 4 0 0018 10.001c0-.632-.174-1.225-.476-1.734a.75.75 0 011.344-.658A5.5 5.5 0 0120 10a5.499 5.499 0 01-3.17 4.293z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center py-8 border-t border-[#d4c9a8] text-sm text-gray-600">
+            <div class="mb-4 flex justify-center space-x-6">
+                <img src="https://placehold.co/32x32?text=Om" alt="Om symbol icon" class="w-8 h-8 opacity-70 hover:opacity-100 transition-opacity">
+                <img src="https://placehold.co/32x32?text=Lotus" alt="Lotus flower icon" class="w-8 h-8 opacity-70 hover:opacity-100 transition-opacity">
+                <img src="https://placehold.co/32x32?text=Conch" alt="Conch shell icon" class="w-8 h-8 opacity-70 hover:opacity-100 transition-opacity">
+            </div>
+            <p>Ślokasaṅgrahaḥ - Selected Verses from the Mahābhārata</p>
+            <p class="mt-1">© 2023 - Wisdom of the Ages</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle IAST transliteration
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const iastDiv = this.closest('.mb-4').querySelector('.italic');
+                    if (this.checked) {
+                        iastDiv.classList.remove('hidden');
+                    } else {
+                        iastDiv.classList.add('hidden');
+                    }
+                });
+            });
+            
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.category-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    // Here you would filter the slokas based on category
+                    console.log(`Selected category: ${this.textContent}`);
+                });
+            });
+            
+            // Bookmark buttons
+            const bookmarkBtns = document.querySelectorAll('.bookmark-btn');
+            bookmarkBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const icon = this.querySelector('.bookmark-icon');
+                    if (icon.getAttribute('fill') === 'none') {
+                        icon.setAttribute('fill', 'currentColor');
+                    } else {
+                        icon.setAttribute('fill', 'none');
+                    }
+                    console.log('Verse bookmarked!');
+                });
+            });
+            
+            // Play buttons
+            const playBtns = document.querySelectorAll('.play-btn');
+            playBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    console.log('Playing audio recitation...');
+                    // In a real implementation, this would trigger audio playback
+                });
+            });
+        });
+    </script>
+</body>
+</html>

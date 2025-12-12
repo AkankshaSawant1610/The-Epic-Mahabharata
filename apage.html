@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Mahabharata Chronicles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Tangerine:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B4513;
+            --secondary: #D2B48C;
+            --accent: #CD853F;
+            --text: #3E2723;
+            --light: #F5F5DC;
+            --gold: #D4AF37;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IM Fell English', serif;
+            background-color: #F5F5DC;
+            background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2777a0b9-a14a-421d-95e0-cfed05deec47.png');
+            background-attachment: fixed;
+            color: var(--text);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+            color: var(--light);
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            border-bottom: 2px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6d30acee-1699-4686-9884-4f3aa8549970.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+            z-index: -1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Tangerine', cursive;
+            font-size: 5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: var(--gold);
+        }
+
+        h2 {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: rgba(210, 180, 140, 0.85);
+            border: 1px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .hero-content::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid var(--gold);
+            pointer-events: none;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        /* Character Cards */
+        .characters {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .character-card {
+            background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1a706534-a283-4764-945a-bf6fe24ab750.png');
+            background-size: cover;
+            padding: 2rem;
+            border: 1px solid var(--primary);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .character-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.2));
+        }
+
+        .character-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border: 2px solid var(--primary);
+            position: relative;
+            background-color: #fff;
+        }
+
+        .character-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: sepia(70%) brightness(90%) contrast(110%);
+            transition: transform 0.3s ease;
+        }
+
+        .character-card:hover .character-image img {
+            transform: scale(1.05);
+        }
+
+        .character-name {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-align: center;
+            position: relative;
+        }
+
+        .character-name::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 2px;
+            background: var(--gold);
+            margin: 0.5rem auto;
+        }
+
+        .character-description {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+            font-style: italic;
+        }
+
+        .character-quote {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--accent);
+            text-align: center;
+            margin-top: auto;
+            border-top: 1px dashed var(--accent);
+            padding-top: 1rem;
+        }
+
+        /* Decorative Elements */
+        .ornate-border {
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,5 C20,10 30,0 50,5 C70,10 80,0 100,5" stroke="%23D4AF37" fill="none" stroke-width="2"/></svg>');
+            background-repeat: repeat-x;
+            bottom: 0;
+            left: 0;
+        }
+
+        .decoration-corner {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M0,50 L50,50 L50,0 C30,15 15,30 0,50 Z" fill="%23D4AF37" opacity="0.3"/></svg>');
+        }
+
+        .top-left {
+            top: 0;
+            left: 0;
+        }
+
+        .top-right {
+            top: 0;
+            right: 0;
+            transform: scaleX(-1);
+        }
+
+        .bottom-left {
+            bottom: 0;
+            left: 0;
+            transform: scaleY(-1);
+        }
+
+        .bottom-right {
+            bottom: 0;
+            right: 0;
+            transform: scale(-1);
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(to bottom, var(--gold), var(--accent));
+            color: var(--text);
+            text-decoration: none;
+            font-family: 'IM Fell English SC', serif;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 1px solid var(--gold);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn:hover::before {
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9));
+            color: var(--light);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            position: relative;
+            border-top: 1px solid var(--gold);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .social-icons {
+            margin: 1rem 0;
+        }
+
+        .social-icons a {
+            color: var(--light);
+            margin: 0 0.5rem;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--gold);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .characters {
+                grid-template-columns: 1fr;
+            }
+            
+            .character-card {
+                height: auto;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animated {
+            animation: fadeIn 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content container animated">
+            <h1>The Mahabharata Chronicles</h1>
+            <h2>An Epic Journey Through Time</h2>
+            <p>Immerse yourself in the greatest story ever told</p>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content animated">
+                <div class="decoration-corner top-left"></div>
+                <div class="decoration-corner top-right"></div>
+                <div class="decoration-corner bottom-left"></div>
+                <div class="decoration-corner bottom-right"></div>
+                
+                <h2>महाभारतम्: महागाथा</h2>
+                <p>महाभारत केवल एक महाकाव्य नहीं है; यह जीवन का एक समग्र ग्रंथ है, जो सबसे गहन दार्शनिक अंतर्दृष्टियाँ, अत्यंत गंभीर नैतिक दुविधाएँ और सबसे महान मानवीय भावनाओं को समेटे हुए है। कुरु वंश की दो शाखाओं के बीच हुए ब्रह्मांडीय युद्ध की यह गाथा शाश्वत सत्य प्रस्तुत करती है, जो युगों-युगों तक गूंजती रहती है।
+
+</p>
+                <a href="#" class="btn">धर्मयात्रा प्रारम्भ</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 style="text-align: center; margin-bottom: 2rem; font-family: 'IM Fell English SC', serif; color: var(--primary);">Legendary Figures</h2>
+        
+        <div class="characters">
+            <!-- Krishna -->
+            <div class="character-card animated">
+                <div class="character-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/216f845b-b364-454c-8ce8-c039a822fc7e.png" alt="Lord Krishna playing flute with peacock feather crown and blue skin">
+                </div>
+                <h3 class="character-name">Shri Krishna</h3>
+                <p class="character-description">The supreme personality of godhead who orchestrated the events of the Mahabharata. His teachings in the Bhagavad Gita form the spiritual core of the epic.</p>
+                <p class="character-quote">"You have the right to perform your prescribed duties, but you are not entitled to the fruits of your actions."</p>
+            </div>
+
+            <!-- Arjuna -->
+            <div class="character-card animated">
+                <div class="character-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/875033f9-824b-4538-9aeb-8bd90889139c.png" alt="Arjuna the warrior prince aiming his divine Gandiva bow on battlefield">
+                </div>
+                <h3 class="character-name">Arjuna</h3>
+                <p class="character-description">The third Pandava brother, peerless archer, and central figure of the Bhagavad Gita. His moral dilemma on the battlefield of Kurukshetra leads to Krishna's divine discourse.</p>
+                <p class="character-quote">"I desire neither victory, nor kingdom, nor pleasures. Of what avail is kingdom to us?"</p>
+            </div>
+
+            <!-- Bhishma -->
+            <div class="character-card animated">
+                <div class="character-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/abb155e8-4672-4e50-96d3-1c2ec5f4ea43.png" alt="Bhishma Pitamah lying on bed of arrows with majestic white beard and armor">
+                </div>
+                <h3 class="character-name">Bhishma</h3>
+                <p class="character-description">The grand patriarch of the Kuru dynasty, renowned for his vow of celibacy and unquestionable loyalty. His death on the bed of arrows is one of the most poignant moments of the epic.</p>
+                <p class="character-quote">"I have given my word to the Kauravas and must fight for them, though I love the Pandavas."</p>
+            </div>
+
+            <!-- Draupadi -->
+            <div class="character-card animated">
+                <div class="character-image">
+                    <img src="media/draupadi1.webp" alt="Queen Draupadi with regal attire and fierce expression standing with her five husbands">
+                </div>
+                <h3 class="character-name">Draupadi</h3>
+                <p class="character-description">The fire-born princess who became the wife of all five Pandava brothers. Her humiliation in the Kaurava court becomes the pivotal moment that makes war inevitable.</p>
+                <p class="character-quote">"Is there no one in this assembly who will defend my honor?"</p>
+            </div>
+
+            <!-- Duryodhana -->
+            <div class="character-card animated">
+                <div class="character-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1ce040c7-8c7f-4415-b108-199a8de2f654.png" alt="Duryodhana the Kaurava prince in royal robes with arrogant expression">
+                </div>
+                <h3 class="character-name">Duryodhana</h3>
+                <p class="character-description">The eldest Kaurava who let his envy of the Pandavas consume him. His greed and pride led to the devastating war.</p>
+                <p class="character-quote">"I would rather die than share this earth with the Pandavas!"</p>
+            </div>
+
+            <!-- Karna -->
+            <div class="character-card animated">
+                <div class="character-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fa0c4032-b56a-42ee-a9c7-f84693bdb726.png" alt="Karna the tragic hero wearing golden Kavacha Kundala armor with noble expression">
+                </div>
+                <h3 class="character-name">Karna</h3>
+                <p class="character-description">The tragic hero born to Kunti before her marriage, abandoned at birth, raised by charioteers, and doomed to fight against his own brothers.</p>
+                <p class="character-quote">"Even if time and death were not on their side, I would still fight the Pandavas alone."</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>The Mahabharata Chronicles</p>
+            <p>An ancient tale for modern times</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p> © Akanksha Sawant – All Rights Reserved.</p>
+        </div>
+        <div class="ornate-border"></div>
+    </footer>
+
+    <script>
+        // Simple animation trigger
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.character-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            // Add hover effect to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.classList.add('hover');
+                });
+                button.addEventListener('mouseleave', function() {
+                    this.classList.remove('hover');
+                });
+            });
+        });
+    </script>
+    
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
+
