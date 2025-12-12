@@ -121,16 +121,6 @@ MahabharataDarshan/
 
 ---
 
-# 📸 **Screenshot Gallery**
-
-Click images for full view:
-
-<p align="center">
-  <a href="Screenshots/homepage.png"><img src="Screenshots/homepage.png" width="150px" /></a>
-  <a href="Screenshots/gitatattvam.png"><img src="Screenshots/gitatattvam.png" width="150px" /></a>
-  <a href="Screenshots/kathakosha.png"><img src="Screenshots/kathakosha.png" width="150px" /></a>
-  <a href="Screenshots/character_gallery.png"><img src="Screenshots/character_gallery.png" width="150px" /></a>
-</p>
 
 ---
 
