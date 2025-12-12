@@ -1,4 +1,4 @@
-Perfect! Here's a **fully polished, professional, GitHub-ready README** for **Mahabharata Darshan**, with **gradient headers, interactive badges, clickable screenshot gallery, and aesthetic dividers**, ready to impress:
+
 
 ---
 
@@ -168,12 +168,3 @@ All content, design, visuals, and concepts are © **Akanksha Sawant – All Righ
 
 ---
 
-I can also **upgrade it further** by adding:
-
-* Animated gradient headers for each section
-* Hover effects on badges and screenshot images
-* Clickable **interactive table of contents** at the top
-
-If you want, I can produce that **next-level fully interactive README** for GitHub.
-
-Do you want me to do that?
