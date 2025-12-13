@@ -31,6 +31,32 @@ The platform provides a **warm, aesthetically pleasing UI** for users to explore
 
 ---
 
+## 📸 Screenshots 
+
+<p align="center">
+  <img src="Screenshots/Screenshot (385).png" width="300" />
+  <img src="Screenshots/Screenshot (386).png" width="300" />
+  <img src="Screenshots/Screenshot (387).png" width="300" />
+  <img src="Screenshots/Screenshot (391).png" width="300" />
+  <img src="Screenshots/Screenshot (392).png" width="300" />
+  <img src="Screenshots/Screenshot (393).png" width="300" />
+  <img src="Screenshots/Screenshot (394).png" width="300" />
+  <img src="Screenshots/Screenshot (395).png" width="300" />
+  <img src="Screenshots/Screenshot (396).png" width="300" />
+  <img src="Screenshots/Screenshot (397).png" width="300" />
+  <img src="Screenshots/Screenshot (398).png" width="300" />
+  <img src="Screenshots/Screenshot (399).png" width="300" />
+  <img src="Screenshots/Screenshot (400).png" width="300" />
+  <img src="Screenshots/Screenshot (402).png" width="300" />
+  <img src="Screenshots/Screenshot (403).png" width="300" />
+  <img src="Screenshots/Screenshot (404).png" width="300" />
+  <img src="Screenshots/Screenshot (405).png" width="300" />
+  
+ 
+</p>
+
+---
+
 # ⭐ **Why This Project Matters**
 
 * Preserves **cultural and spiritual heritage** digitally
